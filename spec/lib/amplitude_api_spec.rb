@@ -114,16 +114,15 @@ describe AmplitudeAPI do
               last_name: 'Doe'
             }
           )
-          body = JSON.generate(
+          body = {
             api_key: described_class.api_key,
-            identification: [identification.to_hash]
-          )
+            identification: JSON.generate([identification.to_hash])
+          }
 
           expect(Typhoeus).to receive(:post)
             .with(
               AmplitudeAPI::IDENTIFY_URI_STRING,
-              body: body,
-              headers: { 'Content-Type': 'application/json' }
+              body: body
             )
 
           described_class.identify(identification)
@@ -139,16 +138,15 @@ describe AmplitudeAPI do
               last_name: 'Doe'
             }
           )
-          body = JSON.generate(
+          body = {
             api_key: described_class.api_key,
-            identification: [identification.to_hash]
-          )
+            identification: JSON.generate([identification.to_hash])
+          }
 
           expect(Typhoeus).to receive(:post)
             .with(
               AmplitudeAPI::IDENTIFY_URI_STRING,
-              body: body,
-              headers: { 'Content-Type': 'application/json' }
+              body: body
             )
 
           described_class.identify(identification)
@@ -165,16 +163,15 @@ describe AmplitudeAPI do
               last_name: 'Doe'
             }
           )
-          body = JSON.generate(
+          body = {
             api_key: described_class.api_key,
-            identification: [identification.to_hash]
-          )
+            identification: JSON.generate([identification.to_hash])
+          }
 
           expect(Typhoeus).to receive(:post)
             .with(
               AmplitudeAPI::IDENTIFY_URI_STRING,
-              body: body,
-              headers: { 'Content-Type': 'application/json' }
+              body: body
             )
 
           described_class.identify(identification)
@@ -198,16 +195,15 @@ describe AmplitudeAPI do
             last_name: 'Doe'
           }
         )
-        body = JSON.generate(
+        body = {
           api_key: described_class.api_key,
-          identification: [identification.to_hash, identification2.to_hash]
-        )
+          identification: JSON.generate([identification.to_hash, identification2.to_hash])
+        }
 
         expect(Typhoeus).to receive(:post)
           .with(
             AmplitudeAPI::IDENTIFY_URI_STRING,
-            body: body,
-            headers: { 'Content-Type': 'application/json' }
+            body: body
           )
 
         described_class.identify([identification, identification2])

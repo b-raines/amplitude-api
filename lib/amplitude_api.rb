@@ -116,10 +116,10 @@ class AmplitudeAPI
     def identify_body(*identifications)
       identification_body = identifications.flatten.map(&:to_hash)
 
-      JSON.generate(
+      {
         api_key: api_key,
-        identification: identification_body
-      )
+        identification: JSON.generate(identification_body)
+      }
     end
 
     # @overload identify(identification)
@@ -134,8 +134,7 @@ class AmplitudeAPI
     def identify(*identifications)
       Typhoeus.post(
         IDENTIFY_URI_STRING,
-        body: identify_body(identifications),
-        headers: { 'Content-Type': 'application/json' }
+        body: identify_body(identifications)
       )
     end
 
