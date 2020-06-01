@@ -69,10 +69,10 @@ class AmplitudeAPI
     def track_body(*events)
       event_body = events.flatten.map(&:to_hash)
 
-      {
+      JSON.generate(
         api_key: api_key,
-        events: JSON.generate(event_body)
-      }
+        events: event_body
+      )
     end
 
     # @overload track(event)
@@ -116,10 +116,10 @@ class AmplitudeAPI
     def identify_body(*identifications)
       identification_body = identifications.flatten.map(&:to_hash)
 
-      {
+      JSON.generate(
         api_key: api_key,
-        identification: JSON.generate(identification_body)
-      }
+        identification: identification_body
+      )
     end
 
     # @overload identify(identification)

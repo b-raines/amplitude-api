@@ -14,10 +14,10 @@ describe AmplitudeAPI do
             user_id: 123,
             event_type: 'clicked on sign up'
           )
-          body = {
+          body = JSON.generate(
             api_key: described_class.api_key,
-            events: JSON.generate([event.to_hash])
-          }
+            events: [event.to_hash]
+          )
 
           expect(Typhoeus).to receive(:post)
             .with(
@@ -36,10 +36,10 @@ describe AmplitudeAPI do
             device_id: device_id,
             event_type: 'clicked on sign up'
           )
-          body = {
+          body = JSON.generate(
             api_key: described_class.api_key,
-            events: JSON.generate([event.to_hash])
-          }
+            events: [event.to_hash]
+          )
 
           expect(Typhoeus).to receive(:post)
             .with(
@@ -59,10 +59,10 @@ describe AmplitudeAPI do
             device_id: device_id,
             event_type: 'clicked on sign up'
           )
-          body = {
+          body = JSON.generate(
             api_key: described_class.api_key,
-            events: JSON.generate([event.to_hash])
-          }
+            events: [event.to_hash]
+          )
 
           expect(Typhoeus).to receive(:post)
             .with(
@@ -86,10 +86,10 @@ describe AmplitudeAPI do
           user_id: 456,
           event_type: 'liked a widget'
         )
-        body = {
+        body = JSON.generate(
           api_key: described_class.api_key,
-          events: JSON.generate([event.to_hash, event2.to_hash])
-        }
+          events: [event.to_hash, event2.to_hash]
+        )
 
         expect(Typhoeus).to receive(:post)
           .with(
@@ -114,10 +114,10 @@ describe AmplitudeAPI do
               last_name: 'Doe'
             }
           )
-          body = {
+          body = JSON.generate(
             api_key: described_class.api_key,
-            identification: JSON.generate([identification.to_hash])
-          }
+            identification: [identification.to_hash]
+          )
 
           expect(Typhoeus).to receive(:post)
             .with(
@@ -139,10 +139,10 @@ describe AmplitudeAPI do
               last_name: 'Doe'
             }
           )
-          body = {
+          body = JSON.generate(
             api_key: described_class.api_key,
-            identification: JSON.generate([identification.to_hash])
-          }
+            identification: [identification.to_hash]
+          )
 
           expect(Typhoeus).to receive(:post)
             .with(
@@ -165,10 +165,10 @@ describe AmplitudeAPI do
               last_name: 'Doe'
             }
           )
-          body = {
+          body = JSON.generate(
             api_key: described_class.api_key,
-            identification: JSON.generate([identification.to_hash])
-          }
+            identification: [identification.to_hash]
+          )
 
           expect(Typhoeus).to receive(:post)
             .with(
@@ -198,10 +198,10 @@ describe AmplitudeAPI do
             last_name: 'Doe'
           }
         )
-        body = {
+        body = JSON.generate(
           api_key: described_class.api_key,
-          identification: JSON.generate([identification.to_hash, identification2.to_hash])
-        }
+          identification: [identification.to_hash, identification2.to_hash]
+        )
 
         expect(Typhoeus).to receive(:post)
           .with(
@@ -539,7 +539,7 @@ describe AmplitudeAPI do
           test_property: 1
         }
       )
-      body = described_class.track_body(event)
+      body = JSON.parse(described_class.track_body(event), symbolize_names: true)
       expect(body[:api_key]).to eq('stub api key')
     end
 
@@ -555,7 +555,8 @@ describe AmplitudeAPI do
         },
         ip: '8.8.8.8'
       )
-      body = described_class.track_body(event)
+      body = JSON.parse(described_class.track_body(event), symbolize_names: true)
+      pp body
 
       expected = [
         {
@@ -570,7 +571,7 @@ describe AmplitudeAPI do
           ip: '8.8.8.8'
         }
       ]
-      expect(JSON.parse(body[:events], symbolize_names: true)).to eq(expected)
+      expect(body[:events]).to eq(expected)
     end
   end
 end
