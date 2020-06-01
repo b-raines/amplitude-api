@@ -5,6 +5,10 @@ AllCops:
 
 Metrics/LineLength:
   Max: 120
+Metrics/ClassLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 20
 
 # Disable some failing rspec cops that fail from upgrading gems until we can clean things up a bit.
 Naming/FileName:
